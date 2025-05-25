@@ -4,7 +4,7 @@ import {
   ValorInvalidoException,
   DataHoraInvalidaException,
 } from '../exceptions/transacao.exceptions';
-import { CreateTransacaoDto } from './create-transacao.dto';
+import { CreateTransacaoDto } from '../dto/create-transacao.dto'; 
 
 describe('TransacaoService', () => {
   let service: TransacaoService;

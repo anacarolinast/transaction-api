@@ -42,4 +42,25 @@ describe('TransacaoService', () => {
     const dto: CreateTransacaoDto = { valor: 100, dataHora: dataValida };
     await expect(service.add(dto)).resolves.toBeUndefined();
   });
+
+  it('Deve retornar todas as transações adicionadas', async () => {
+    const dto1: CreateTransacaoDto = { valor: 50, dataHora: new Date().toISOString() };
+    const dto2: CreateTransacaoDto = { valor: 150, dataHora: new Date().toISOString() };
+    await service.add(dto1);
+    await service.add(dto2);
+
+    const transacoes = await service.getAll();
+    expect(transacoes).toHaveLength(2);
+    expect(transacoes).toContainEqual(dto1);
+    expect(transacoes).toContainEqual(dto2);
+  });
+
+  it('Deve limpar todas as transações', async () => {
+    const dto: CreateTransacaoDto = { valor: 50, dataHora: new Date().toISOString() };
+    await service.add(dto);
+    await service.clear();
+
+    const transacoes = await service.getAll();
+    expect(transacoes).toHaveLength(0);
+  });
 });

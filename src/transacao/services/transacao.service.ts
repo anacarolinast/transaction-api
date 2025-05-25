@@ -37,7 +37,11 @@ export class TransacaoService {
     }
   }
 
-  getAll(): CreateTransacaoDto[] {
+  async getAll(): Promise<CreateTransacaoDto[]> {
     return this.transacoes;
+  }
+
+  async clear(): Promise<void> {
+    this.transacoes.length = 0;
   }
 }

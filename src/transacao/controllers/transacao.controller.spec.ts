@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TransacaoController } from './transacao.controller';
 import { TransacaoService } from '../services/transacao.service';
-import { CreateTransacaoDto } from './create-transacao.dto';
+import { CreateTransacaoDto } from '../dto/create-transacao.dto';
 import {
   CamposObrigatoriosException,
   ValorInvalidoException,

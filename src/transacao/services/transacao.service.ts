@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTransacaoDto } from '../dto/create-transacao.dto'; 
+import { CreateTransacaoDto } from '../dto/create-transacao.dto';
 import {
   CamposObrigatoriosException,
   ValorInvalidoException,
@@ -8,10 +8,14 @@ import {
 
 @Injectable()
 export class TransacaoService {
+  private readonly transacoes: CreateTransacaoDto[] = [];
+
   async add(dto: CreateTransacaoDto): Promise<void> {
     this.validarCamposObrigatorios(dto);
     this.validarValor(dto.valor);
     this.validarDataHora(dto.dataHora);
+
+    this.transacoes.push(dto);
   }
 
   private validarCamposObrigatorios(dto: CreateTransacaoDto): void {
@@ -31,5 +35,9 @@ export class TransacaoService {
     if (isNaN(data.getTime()) || data > new Date()) {
       throw new DataHoraInvalidaException();
     }
+  }
+
+  getAll(): CreateTransacaoDto[] {
+    return this.transacoes;
   }
 }

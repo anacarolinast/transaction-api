@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { TransacaoService } from '../../transacao/services/transacao.service';
-import { Estatistica } from '../interfaces/estatistica.interface';
+import { EstatisticaDto } from '../dto/estatistica-response.dto';
 
 @Injectable()
 export class EstatisticaService {
@@ -8,7 +8,7 @@ export class EstatisticaService {
 
   constructor(private readonly transacaoService: TransacaoService) {}
 
-  async calcularEstatisticas(): Promise<Estatistica> {
+  async calcularEstatisticas(): Promise<EstatisticaDto> {
     const agora = Date.now();
     const transacoes = await this.transacaoService.getAll();
 

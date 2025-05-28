@@ -4,17 +4,15 @@ import { EstatisticaDto } from '../dto/estatistica-response.dto';
 
 @Injectable()
 export class EstatisticaService {
-  private static readonly INTERVALO_UM_MINUTO_MS = 60_000;
-
   constructor(private readonly transacaoService: TransacaoService) {}
 
-  async calcularEstatisticas(): Promise<EstatisticaDto> {
+  async calcularEstatisticas(intervaloMs = 60_000): Promise<EstatisticaDto> {
     const agora = Date.now();
     const transacoes = await this.transacaoService.getAll();
 
     const transacoesRecentes = transacoes.filter(({ dataHora }) => {
       const diff = agora - new Date(dataHora).getTime();
-      return diff >= 0 && diff <= EstatisticaService.INTERVALO_UM_MINUTO_MS;
+      return diff >= 0 && diff <= intervaloMs;
     });
 
     if (!transacoesRecentes.length) {

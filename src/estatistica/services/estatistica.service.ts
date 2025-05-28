@@ -27,10 +27,10 @@ export class EstatisticaService {
 
     return {
       count,
-      sum,
-      avg: sum / count,
-      min: Math.min(...valores),
-      max: Math.max(...valores),
+      sum: Number(sum.toFixed(2)),
+      avg: Number((sum / count).toFixed(2)),
+      min: Number(Math.min(...valores).toFixed(2)),
+      max: Number(Math.max(...valores).toFixed(2)),
     };
   }
 }
